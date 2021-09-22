@@ -1,0 +1,19 @@
+{
+  "name": "home-creator",
+  "version": "1.0.0",
+  "description": "Sample application for creating, validating, and retrieving homes",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zinabat/home-creator.git"
+  },
+  "author": "Zina Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zinabat/home-creator/issues"
+  },
+  "homepage": "https://github.com/zinabat/home-creator#readme"
+}
