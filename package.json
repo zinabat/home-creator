@@ -2,9 +2,14 @@
   "name": "home-creator",
   "version": "1.0.0",
   "description": "Sample application for creating, validating, and retrieving homes",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "npm run test"
+    "lint": "eslint . --ext .js",
+    "deploy": "serverless deploy",
+    "undeploy": "serverless remove",
+    "info": "serverless info",
+    "test": "mocha --recursive ./test/unit",
+    "integration-test": "mocha --recursive ./test/integration"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,27 @@
   "bugs": {
     "url": "https://github.com/zinabat/home-creator/issues"
   },
-  "homepage": "https://github.com/zinabat/home-creator#readme"
+  "homepage": "https://github.com/zinabat/home-creator#readme",
+  "devDependencies": {
+    "aws-sdk-client-mock": "^0.5.5",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "mocha": "^9.1.1",
+    "serverless": "^2.59.0",
+    "serverless-stack-output": "^0.2.3",
+    "sinon": "^11.1.2"
+  },
+  "dependencies": {
+    "ajv": "^8.6.3",
+    "ajv-keywords": "^5.0.0",
+    "aws-sdk": "^2.993.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0",
+    "siren-builder": "^1.1.0",
+    "uuid": "^8.3.2"
+  }
 }

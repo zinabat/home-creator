@@ -1,0 +1,73 @@
+org: zinabat
+app: properly-sample
+service: home-api
+
+plugins:
+  - serverless-stack-output
+
+custom:
+  infraStack: ${self:service}-infra-${self:provider.stage}
+  tableName: '${self:provider.stage}-homes'
+  uploadBucketName: '${self:provider.stage}-${self:service}-uploads'
+  corsConfig: true
+  output:
+    file: .build/stack.json
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  lambdaHashingVersion: 20201221
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["HomesDynamoDBTable", "Arn" ] }
+  environment:
+    REGION: ${self:provider.region}
+    STAGE: ${self:provider.stage}
+    HOMES_TABLE: ${self:custom.tableName}
+    API_ENDPOINT: ${ApiGatewayRestApi}
+  httpApi:
+    cors: true
+
+functions:
+  app:
+    handler: src/index.handler
+    events:
+      - httpApi: ANY /
+
+resources:
+  Resources:
+    UploadsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.uploadBucketName}
+    HomesDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: homeId
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: homeId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
+
+  Outputs:
+    ApiEndpoint:
+      Description: The public address of the endpoint
+      Value: ${ApiGatewayRestApi}
+
