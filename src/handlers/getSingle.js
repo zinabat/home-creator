@@ -2,7 +2,7 @@
 const AWS = require('../aws.js');
 const config = require('../config.js');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const Siren = require('siren-builder');
+// const Siren = require('siren-builder');
 
 module.exports.handler = function (req, res) {
 	const homeId = req.params.homeId
@@ -22,10 +22,10 @@ module.exports.handler = function (req, res) {
 		if (!result.Item) {
 			return res.status(404).json({ error: "Home not found" });
 		}
-		const entity = Siren.entity()
-			.addClass('home')
-			.addLink('self', `${config.API_ENDPOINT}/home/${params.Item.homeId}`)
-			.addProperties(result.Item);
-		return res.json(entity);
+		// const entity = Siren.entity()
+		// 	.addClass('home')
+		// 	.addLink('self', `${config.API_ENDPOINT}/home/${params.Item.homeId}`)
+		// 	.addProperties(result.Item);
+		return res.json(result.Item);
 	});
 };
