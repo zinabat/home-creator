@@ -1,5 +1,5 @@
 const config = {
-	STACK: process.env.STAGE,
+	STAGE: process.env.STAGE,
 	REGION: process.env.REGION,
 	HOMES_TABLE: process.env.HOMES_TABLE,
 	API_ENDPOINT: process.env.API_ENDPOINT

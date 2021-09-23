@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const config = require('../config.js');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const validator = require('../validators/home.js');
+const Siren = require('siren-builder');
 
 module.exports.handler = function (req, res) {
 	const input = req.body;
@@ -28,6 +29,10 @@ module.exports.handler = function (req, res) {
 			console.log(error);
 			return res.status(400).json({ error: 'Could not create home' });
 		}
-		res.json(params);
+		const entity = Siren.entity()
+			.addClass('home')
+			.addLink('self', `${config.API_ENDPOINT}/home/${params.Item.homeId}`)
+			.addProperties(input);
+		res.json(entity);
 	});
 };

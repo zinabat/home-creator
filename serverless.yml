@@ -34,15 +34,21 @@ provider:
     REGION: ${self:provider.region}
     STAGE: ${self:provider.stage}
     HOMES_TABLE: ${self:custom.tableName}
-    API_ENDPOINT: ${ApiGatewayRestApi}
-  httpApi:
-    cors: true
+    API_ENDPOINT:
+      !Join
+        - ''
+        - - 'https://'
+          - !Ref ApiGatewayRestApi
+          - '.execute-api.'
+          - ${opt:region, self:provider.region}
+          - '.amazonaws.com/'
+          - ${opt:stage, self:provider.stage}
 
 functions:
   app:
     handler: src/index.handler
     events:
-      - httpApi: ANY /
+      - http: ANY /
 
 resources:
   Resources:
