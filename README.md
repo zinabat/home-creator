@@ -64,14 +64,124 @@ To run unit tests:
 
 ## API Reference
 
-### `GET https://<api>.<region>.amazonaws.com/dev/`
+### `GET https://<api>.execute-api.<region>.amazonaws.com/<stage>/`
 
 Root endpoint to ensure API is running.
 
-### `POST https://<api>.<region>.amazonaws.com/dev/home`
+#### Example Response
 
-Creates a home given some data.
+```json
+{
+    "class": [
+        "root"
+    ],
+    "actions": [
+        {
+            "name": "create-home",
+            "method": "POST",
+            "href": "https://<gateway-id>.execute-api.us-east-1.amazonaws.com/dev/home",
+            "type": "application/json",
+            "fields": [
+                {
+                    "name": "address",
+                    "type": "text"
+                },
+                {
+                    "name": "city",
+                    "type": "text"
+                },
+                {
+                    "name": "province",
+                    "type": "text"
+                },
+                {
+                    "name": "type",
+                    "type": "text"
+                },
+                {
+                    "name": "zone",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "name": "get-home",
+            "method": "GET",
+            "href": "https://<gateway-id>.execute-api.us-east-1.amazonaws.com/dev/home",
+            "type": "application/json",
+            "fields": [
+                {
+                    "name": "homeId",
+                    "type": "text"
+                }
+            ]
+        }
+    ],
+    "links": [
+        {
+            "rel": [
+                "self"
+            ],
+            "href": "https://<gateway-id>.execute-api.us-east-1.amazonaws.com"
+        }
+    ]
+}
+```
 
-### `GET https://<api>.<region>.amazonaws.com/dev/home/<homeId>`
+### `POST https://<api>.execute-api.<region>.amazonaws.com/<stage>/home`
+
+Creates a home given some data. Returns the entity of the home as a response if successful
+
+#### Example Response
+
+```json
+{
+    "class": [
+        "home"
+    ],
+    "links": [
+        {
+            "rel": [
+                "self"
+            ],
+            "href": "https://<api>.execute-api.<region>.amazonaws.com/<stage>/home/<homeid>"
+        }
+    ],
+    "properties": {
+        "address": "some address",
+        "city": "some city",
+        "province": "some province",
+        "type": "detached",
+        "zone": "residential"
+    }
+}
+```
+
+### `GET https://<api>.execute-api.<region>.amazonaws.com/<stage>/home/<homeId>`
 
 Returns a home given an id.
+
+#### Example Response
+
+```json
+{
+    "class": [
+        "home"
+    ],
+    "links": [
+        {
+            "rel": [
+                "self"
+            ],
+            "href": "https://<api>.execute-api.<region>.amazonaws.com/<stage>/home/<homeid>"
+        }
+    ],
+    "properties": {
+        "address": "some address",
+        "city": "some city",
+        "province": "some province",
+        "type": "detached",
+        "zone": "residential"
+    }
+}
+```
