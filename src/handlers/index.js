@@ -6,15 +6,14 @@ const getAll = require('./getAll.js').handler;
 const Siren = require('siren-builder');
 const config = require('../config.js');
 
-
-
 const root = function (req, res) {
 	const entity = Siren.entity()
 		.addClass('root')
-		.addLink('self', Siren.link().setHref(config.API_ENDPOINT))
+		.addLink('self', Siren.link().setHref(config.API_ENDPOINT.replace(`/${config.STAGE}`, '')))
 		.addAction('create-home', Siren.action()
 			.setMethod('POST')
 			.setType('application/json')
+			.setHref(`${config.API_ENDPOINT}/home`)
 			.addField('address', Siren.field().setType('text'))
 			.addField('city', Siren.field().setType('text'))
 			.addField('province', Siren.field().setType('text'))
@@ -23,6 +22,7 @@ const root = function (req, res) {
 		.addAction('get-home', Siren.action()
 			.setMethod('GET')
 			.setType('application/json')
+			.setHref(`${config.API_ENDPOINT}/home`)
 			.addField('homeId', Siren.field().setType('text')))
 	res.status(200).json(entity);
 };

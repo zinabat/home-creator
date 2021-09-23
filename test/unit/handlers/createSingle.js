@@ -15,7 +15,6 @@ describe('Create Single', () => {
 			"bad" : "badbadbad"
 		};
 		expect(() => handler(mockRequest(input), mockResponse())).to.not.throw();
-		expect(mockRequest(input), mockResponse()).error.to.exist;
 		// todo: check error message is correct
 	});
 
