@@ -30,7 +30,7 @@ Here are the things I was able to complete in a few hours, and a long list of th
   - [ ] Continuous deployment occurs when pushing to `main`
 - [x] The application is tested with automated tests
   - [x] Unit tests exist for the validator
-  - [ ] A Github workflow tests before merging
+  - [x] A Github workflow tests before merging
   - [ ] Unit tests exist for each lambda handler
   - [ ] Integration tests exist for each major workflow, designed to run post deployment
   - [ ] Postman smoke tests exist for each endpoint
