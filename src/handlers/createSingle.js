@@ -13,7 +13,7 @@ module.exports.handler = function (req, res) {
 			throw new Error(`Failed validation: ${JSON.stringify(validator.errors)}`);
 		}
 	} catch (err) {
-		return res.status(400).json({ error: JSON.stringify(err) });
+		return res.status(400).json({ error: `Something went wrong? ${JSON.stringify(err)}` });
 	}
 
 	const params = {
