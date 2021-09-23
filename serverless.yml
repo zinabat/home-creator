@@ -49,6 +49,7 @@ functions:
     handler: src/index.handler
     events:
       - http: ANY /
+      - http: ANY /{proxy+}
 
 resources:
   Resources:
